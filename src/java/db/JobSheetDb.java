@@ -82,7 +82,7 @@ public class JobSheetDb extends TryCatchDb<JobSheet> {
             query.append(" AND j.completeDate IS NULL");
         }
         if (StringUtils.isNotEmpty(condition.getLimitDate())) {
-            query.append(" AND j.limitDate = :limitDate");
+            query.append(" AND j.limitDate <= :limitDate");
         }
         if (StringUtils.isNotEmpty(condition.getKeyword())) {
             query.append(" AND (j.title LIKE :keyword OR j.content LIKE :keyword )");
@@ -119,8 +119,8 @@ public class JobSheetDb extends TryCatchDb<JobSheet> {
             q.setParameter("occurDateTo", occurDateTo);
         }
         if (StringUtils.isNotEmpty(condition.getLimitDate())) {
-            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
-            Date limitDate = sdFormat.parse(condition.getLimitDate());
+            SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+            Date limitDate = sdFormat.parse(condition.getLimitDate() + " 23:59");
             q.setParameter("limitDate", limitDate);
         }
         if (StringUtils.isNotEmpty(condition.getKeyword())) {
