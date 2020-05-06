@@ -56,6 +56,16 @@ import javax.persistence.TemporalType;
                     + "   AND js.businessSystem.id = :systemId"
     ),
     @NamedQuery (
+            name = JobSheet.JOBSHEET_SUM_TIME,
+            query =   "SELECT SUM(js.responseTime)"
+                    + "  FROM JobSheet js"
+                    + " WHERE js.completeDate >= :completeDateFrom"
+                    + "   AND js.completeDate <= :completeDateTo"
+                    + "   AND js.completeDate IS NOT NULL"
+                    + "   AND js.responseTime IS NOT NULL"
+                    + "   AND js.businessSystem.id = :systemId"
+    ),
+    @NamedQuery (
             name = JobSheet.JOBSHEET_SYSTEMCHECK,
             query =   "SELECT js"
                     + "  FROM JobSheet js"
@@ -72,6 +82,7 @@ public class JobSheet implements Serializable {
     public static final String JOBSHEET_STATS_OCCUR = "JOBSHEET_STATS_OCCUR";
     public static final String JOBSHEET_STATS_COMPLETE = "JOBSHEET_STATS_COMPLETE";
     public static final String JOBSHEET_COUNT_LEFT = "JOBSHEET_COUNT_LEFT";
+    public static final String JOBSHEET_SUM_TIME = "JOBSHEET_SUM_TIME";
     
     public static final int SIZE_ID = 11;
     public static final int SIZE_DEPARTMENT = 50;

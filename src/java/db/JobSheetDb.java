@@ -203,6 +203,26 @@ public class JobSheetDb extends TryCatchDb<JobSheet> {
     }
     
     /**
+     * 指定したシステムの指定期間の時間数を合計する。
+     * @param system
+     * @param fromDate
+     * @param toDate
+     * @return 
+     */
+    public Double sumTime(BusinessSystem system, Date fromDate, Date toDate) {
+        TypedQuery<Double> q = em.createNamedQuery(JobSheet.JOBSHEET_SUM_TIME, Double.class);
+        q.setParameter("completeDateFrom", fromDate);
+        q.setParameter("completeDateTo", toDate);
+        q.setParameter("systemId", system.getId());
+        Double result = 0.0;
+        Double sum = q.getSingleResult();
+        if (sum != null) {
+            result = sum;
+        }
+        return result;
+    }
+    
+    /**
      * 指定したシステムの未完了の問合せ件数をカウントする。
      * @param system
      * @return 
@@ -217,4 +237,6 @@ public class JobSheetDb extends TryCatchDb<JobSheet> {
         }
         return result;
     }
+    
+    
 }

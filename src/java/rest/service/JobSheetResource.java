@@ -253,6 +253,8 @@ public class JobSheetResource {
         systemList.forEach(system -> {
             RestStatJobSheet restStatJobSheet = new RestStatJobSheet();
             restStatJobSheet.setBusinessSystem(system);
+            // 1年の合計時間用
+            Double responseTimeSum = 0.0;
             // 4月から3月まで件数をカウントする。
             for (int monthIdx = 1; monthIdx <= 12; monthIdx++) {
                 int statsYear = Integer.parseInt(year);
@@ -268,61 +270,77 @@ public class JobSheetResource {
                 
                 Integer occurCnt = jobSheetDb.statsOccur(system, from, to);
                 Integer completeCnt = jobSheetDb.statsComplete(system, from, to);
-                
+                Double responseTime = jobSheetDb.sumTime(system, from, to);
                 switch (monthIdx) {
                     case 1:
                         restStatJobSheet.setOccurCnt1(occurCnt);
                         restStatJobSheet.setCompleteCnt1(completeCnt);
+                        restStatJobSheet.setResponseTime1(responseTime);
                         break;
                     case 2:
                         restStatJobSheet.setOccurCnt2(occurCnt);
                         restStatJobSheet.setCompleteCnt2(completeCnt);
+                        restStatJobSheet.setResponseTime2(responseTime);
                         break;
                     case 3:
                         restStatJobSheet.setOccurCnt3(occurCnt);
                         restStatJobSheet.setCompleteCnt3(completeCnt);
+                        restStatJobSheet.setResponseTime3(responseTime);
                         break;
                     case 4:
                         restStatJobSheet.setOccurCnt4(occurCnt);
                         restStatJobSheet.setCompleteCnt4(completeCnt);
+                        restStatJobSheet.setResponseTime4(responseTime);
                         break;
                     case 5:
                         restStatJobSheet.setOccurCnt5(occurCnt);
                         restStatJobSheet.setCompleteCnt5(completeCnt);
+                        restStatJobSheet.setResponseTime5(responseTime);
                         break;
                     case 6:
                         restStatJobSheet.setOccurCnt6(occurCnt);
                         restStatJobSheet.setCompleteCnt6(completeCnt);
+                        restStatJobSheet.setResponseTime6(responseTime);
                         break;
                     case 7:
                         restStatJobSheet.setOccurCnt7(occurCnt);
                         restStatJobSheet.setCompleteCnt7(completeCnt);
+                        restStatJobSheet.setResponseTime7(responseTime);
                         break;
                     case 8:
                         restStatJobSheet.setOccurCnt8(occurCnt);
                         restStatJobSheet.setCompleteCnt8(completeCnt);
+                        restStatJobSheet.setResponseTime8(responseTime);
                         break;
                     case 9:
                         restStatJobSheet.setOccurCnt9(occurCnt);
                         restStatJobSheet.setCompleteCnt9(completeCnt);
+                        restStatJobSheet.setResponseTime9(responseTime);
                         break;
                     case 10:
                         restStatJobSheet.setOccurCnt10(occurCnt);
                         restStatJobSheet.setCompleteCnt10(completeCnt);
+                        restStatJobSheet.setResponseTime10(responseTime);
                         break;
                     case 11:
                         restStatJobSheet.setOccurCnt11(occurCnt);
                         restStatJobSheet.setCompleteCnt11(completeCnt);
+                        restStatJobSheet.setResponseTime11(responseTime);
                         break;
                     case 12:
                         restStatJobSheet.setOccurCnt12(occurCnt);
                         restStatJobSheet.setCompleteCnt12(completeCnt);
+                        restStatJobSheet.setResponseTime12(responseTime);
                         break;
                 }
+                // 1年の合計時間に加算
+                responseTimeSum = responseTimeSum + responseTime;
             }
             // 未完了の件数を求める。
             Integer leftCnt = jobSheetDb.countLeft(system);
             restStatJobSheet.setLeftCnt(leftCnt);
+            // 1年の合計時間
+            restStatJobSheet.setResponseTimeSum(responseTimeSum);
             // 結果リストに追加
             restStatJobSheetList.add(restStatJobSheet);
         });
