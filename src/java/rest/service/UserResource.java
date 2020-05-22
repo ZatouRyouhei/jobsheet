@@ -19,6 +19,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 import rest.dto.RestUser;
+import rest.dto.RestUserList;
 
 /**
  *
@@ -54,10 +55,9 @@ public class UserResource {
         List<User> userList = userdb.getAll();
         List<RestUser> restUserList = userList
                                         .stream()
-                                        .map(user -> new RestUser(user.getId(), user.getName()))
+                                        .map(user -> new RestUser(user.getId(), user.getName(), user.getSeqNo()))
+                                        .sorted(Comparator.comparing(RestUser::getSeqNo))
                                         .collect(Collectors.toList());
-        restUserList.sort(Comparator.comparing(RestUser::getId));
-                                        
         return restUserList;
     }
     
@@ -68,7 +68,8 @@ public class UserResource {
         User user = userdb.search(restUser.getId());
         if (user == null) {
             // 新規登録
-            User registUser = new User(restUser.getId(), restUser.getPassword(), restUser.getName());
+            Integer nextSeqNo = userdb.getNextSeq();
+            User registUser = new User(restUser.getId(), restUser.getPassword(), restUser.getName(), nextSeqNo);
             userdb.add(registUser);
         } else {
             // 更新
@@ -106,6 +107,19 @@ public class UserResource {
         }
         
         return result;
+    }
+    
+    @POST
+    @Path("/changeSeq")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void changeSeq(RestUserList userList) {
+        userList.getUserList().forEach(user -> System.out.println(user));
+        for (int seqNo = 1; seqNo <= userList.getUserList().size(); seqNo++) {
+            String targetId = userList.getUserList().get(seqNo - 1);
+            User targetUser = userdb.search(targetId);
+            targetUser.setSeqNo(seqNo);
+            userdb.update(targetUser);
+        }
     }
     
 }

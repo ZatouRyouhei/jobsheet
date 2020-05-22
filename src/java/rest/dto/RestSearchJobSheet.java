@@ -62,9 +62,9 @@ public class RestSearchJobSheet {
         this.occurTime = new SimpleDateFormat("HH:mm").format(jobSheet.getOccurDateTime());
         this.title = jobSheet.getTitle();
         this.content = jobSheet.getContent();
-        this.contact = new RestUser(jobSheet.getContact().getId(), jobSheet.getContact().getName());
+        this.contact = new RestUser(jobSheet.getContact().getId(), jobSheet.getContact().getName(), jobSheet.getContact().getSeqNo());
         this.limitDate = new SimpleDateFormat("yyyy-MM-dd").format(jobSheet.getLimitDate());
-        this.deal = new RestUser(jobSheet.getDeal().getId(), jobSheet.getDeal().getName());
+        this.deal = new RestUser(jobSheet.getDeal().getId(), jobSheet.getDeal().getName(), jobSheet.getDeal().getSeqNo());
         if (jobSheet.getCompleteDate() != null) {
             this.completeDate = new SimpleDateFormat("yyyy-MM-dd").format(jobSheet.getCompleteDate());
         } else {
