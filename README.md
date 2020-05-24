@@ -50,8 +50,24 @@ Resources→JDBC→JDBC Connction Pools でコネクションプールを作成�
 | driverClass | com.mysql.jdbc.Driver |
 | URL | jdbc:mysql://localhost:3306/jobsheetdb?zeroDateTimeBehavior=convertToNull&useSSL=false|
 
-8. JDBCリソースを作成
-Payara管理画面のResources→JDBC→JDBC Resourcesで作成する。
-PoolNameには、7で作成したコネクションプールを選択する。
+8. JDBCリソースを作成  
+Payara管理画面のResources→JDBC→JDBC Resourcesで作成します。  
+PoolNameには、7で作成したコネクションプールを選択してください。
 
+9. Netbeansにソースをインポート  
+Netbeansの「Projects」タブで、右クリック→Open Project...をクリックし、  
+ダウンロードしたソースを選択します。
 
+10. プロジェクト設定  
+プロジェクトを右クリックし、Propatiesで、使用するJavaとPayaraを指定します。
+
+11. データソース設定  
+プロジェクトのsrc/conf/persistence.xmlのデータソース名を  
+8で作成したJDBCリソース名にしてください。
+```
+<jta-data-source>jdbc/jobsheetdb</jta-data-source>
+```
+12. ビルド、デプロイ  
+Netbeansでプロジェクトを右クリックし、Buildおよび、Deployをしてください。
+
+以上でセットアップは完了です。
