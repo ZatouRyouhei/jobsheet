@@ -68,6 +68,7 @@ Netbeansの「Projects」タブで、右クリック→Open Project...をクリ�
 <jta-data-source>jdbc/jobsheetdb</jta-data-source>
 ```
 12. ビルド、デプロイ  
-Netbeansでプロジェクトを右クリックし、Buildおよび、Deployをしてください。
+Netbeansでプロジェクトを右クリックし、Buildおよび、Deployをしてください。  
+Deployをすると、データベースに必要なテーブルが自動的に作成されます。
 
 以上でセットアップは完了です。
