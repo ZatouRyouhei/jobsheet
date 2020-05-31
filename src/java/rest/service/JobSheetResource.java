@@ -29,6 +29,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.InternalServerErrorException;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -346,6 +347,87 @@ public class JobSheetResource {
         });
         
         return restStatJobSheetList;
+    }
+    
+    @GET
+    @Path("/stats/{year}/{systemId}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestStatJobSheet getChart(@PathParam("year") Integer year, @PathParam("systemId") Integer systemId) {
+        BusinessSystem targetSystem = businessSystemDb.search(systemId);
+        if (targetSystem != null) {
+            RestStatJobSheet restStatJobSheet = new RestStatJobSheet();
+            restStatJobSheet.setBusinessSystem(targetSystem);
+            // 4月から3月まで件数をカウントする。
+            for (int monthIdx = 1; monthIdx <= 12; monthIdx++) {
+                int statsYear = year;
+                if (monthIdx <= 3) {
+                    statsYear = statsYear + 1;
+                }
+                LocalDateTime ldFrom = LocalDateTime.of(statsYear, monthIdx, 1, 0, 0);
+                TemporalAdjuster lastDay = TemporalAdjusters.lastDayOfMonth();
+                LocalDateTime ldTo = ldFrom.with(lastDay).with(LocalTime.of(23, 59));
+                
+                Date from = Date.from(ldFrom.atZone(ZoneId.systemDefault()).toInstant());
+                Date to = Date.from(ldTo.atZone(ZoneId.systemDefault()).toInstant());
+                
+                Integer occurCnt = jobSheetDb.statsOccur(targetSystem, from, to);
+                Integer completeCnt = jobSheetDb.statsComplete(targetSystem, from, to);
+                
+                switch (monthIdx) {
+                    case 1:
+                        restStatJobSheet.setOccurCnt1(occurCnt);
+                        restStatJobSheet.setCompleteCnt1(completeCnt);
+                        break;
+                    case 2:
+                        restStatJobSheet.setOccurCnt2(occurCnt);
+                        restStatJobSheet.setCompleteCnt2(completeCnt);
+                        break;
+                    case 3:
+                        restStatJobSheet.setOccurCnt3(occurCnt);
+                        restStatJobSheet.setCompleteCnt3(completeCnt);
+                        break;
+                    case 4:
+                        restStatJobSheet.setOccurCnt4(occurCnt);
+                        restStatJobSheet.setCompleteCnt4(completeCnt);
+                        break;
+                    case 5:
+                        restStatJobSheet.setOccurCnt5(occurCnt);
+                        restStatJobSheet.setCompleteCnt5(completeCnt);
+                        break;
+                    case 6:
+                        restStatJobSheet.setOccurCnt6(occurCnt);
+                        restStatJobSheet.setCompleteCnt6(completeCnt);
+                        break;
+                    case 7:
+                        restStatJobSheet.setOccurCnt7(occurCnt);
+                        restStatJobSheet.setCompleteCnt7(completeCnt);
+                        break;
+                    case 8:
+                        restStatJobSheet.setOccurCnt8(occurCnt);
+                        restStatJobSheet.setCompleteCnt8(completeCnt);
+                        break;
+                    case 9:
+                        restStatJobSheet.setOccurCnt9(occurCnt);
+                        restStatJobSheet.setCompleteCnt9(completeCnt);
+                        break;
+                    case 10:
+                        restStatJobSheet.setOccurCnt10(occurCnt);
+                        restStatJobSheet.setCompleteCnt10(completeCnt);
+                        break;
+                    case 11:
+                        restStatJobSheet.setOccurCnt11(occurCnt);
+                        restStatJobSheet.setCompleteCnt11(completeCnt);
+                        break;
+                    case 12:
+                        restStatJobSheet.setOccurCnt12(occurCnt);
+                        restStatJobSheet.setCompleteCnt12(completeCnt);
+                        break;
+                }
+            }
+            return restStatJobSheet;
+        } else {
+            throw new NotFoundException();
+        }
     }
     
     // セルに値を設定
