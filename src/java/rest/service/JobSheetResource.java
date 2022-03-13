@@ -102,7 +102,9 @@ public class JobSheetResource {
             if (!StringUtils.isEmpty(restJobSheet.getLimitDate())) {
                 jobSheet.setLimitDate(new SimpleDateFormat("yyyy-MM-dd").parse(restJobSheet.getLimitDate()));
             }
-            jobSheet.setDeal(userDb.search(restJobSheet.getDeal()));
+            if (!StringUtils.isEmpty(restJobSheet.getDeal())) {
+                jobSheet.setDeal(userDb.search(restJobSheet.getDeal()));
+            }
             if (!StringUtils.isEmpty(restJobSheet.getCompleteDate())) {
                 jobSheet.setCompleteDate(new SimpleDateFormat("yyyy-MM-dd").parse(restJobSheet.getCompleteDate()));
             }
@@ -137,6 +139,22 @@ public class JobSheetResource {
         targetAttachmentList.forEach(attachment -> {
             attachmentDb.delete(attachment);
         });
+    }
+    
+    @GET
+    @Path("/get/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public RestSearchJobSheet getJobSheet(@PathParam("id") String id) {
+        JobSheet jobSheet = jobSheetDb.search(id);
+        if (jobSheet != null) {
+            // 結果が取得できた場合
+            List<Attachment> attachmentList = attachmentDb.getFileList(jobSheet.getId());
+            RestSearchJobSheet restSearchJobSheet = new RestSearchJobSheet(jobSheet, attachmentList);
+            return restSearchJobSheet;
+        } else {
+            // 結果が取得できない場合
+            throw new NotFoundException();
+        }
     }
     
     @POST
@@ -222,7 +240,11 @@ public class JobSheetResource {
                 // 窓口
                 setCellValue(row, 10, jobSheet.getContact().getName(), cellStyle);
                 // 対応者
-                setCellValue(row, 11, jobSheet.getDeal().getName(), cellStyle);
+                if (jobSheet.getDeal() != null) {
+                    setCellValue(row, 11, jobSheet.getDeal().getName(), cellStyle);
+                } else {
+                    setCellValue(row, 11, "", cellStyle);
+                }
                 // 完了期限
                 setCellValue(row, 12, jobSheet.getLimitDate(), dateCellStyle);
                 // 完了日

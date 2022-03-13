@@ -63,8 +63,16 @@ public class RestSearchJobSheet {
         this.title = jobSheet.getTitle();
         this.content = jobSheet.getContent();
         this.contact = new RestUser(jobSheet.getContact().getId(), jobSheet.getContact().getName(), jobSheet.getContact().getSeqNo());
-        this.limitDate = new SimpleDateFormat("yyyy-MM-dd").format(jobSheet.getLimitDate());
-        this.deal = new RestUser(jobSheet.getDeal().getId(), jobSheet.getDeal().getName(), jobSheet.getDeal().getSeqNo());
+        if (jobSheet.getLimitDate() != null) {
+            this.limitDate = new SimpleDateFormat("yyyy-MM-dd").format(jobSheet.getLimitDate());
+        } else {
+            this.limitDate = "";
+        }
+        if (jobSheet.getDeal() != null) {
+            this.deal = new RestUser(jobSheet.getDeal().getId(), jobSheet.getDeal().getName(), jobSheet.getDeal().getSeqNo());
+        } else {
+             this.deal = new RestUser();
+        }
         if (jobSheet.getCompleteDate() != null) {
             this.completeDate = new SimpleDateFormat("yyyy-MM-dd").format(jobSheet.getCompleteDate());
         } else {
