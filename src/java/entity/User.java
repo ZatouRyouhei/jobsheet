@@ -18,6 +18,13 @@ import javax.persistence.Table;
             name = User.USER_GETMAXSEQ,
             query =   "SELECT MAX(u.seqNo)"
                     + "  FROM User u"
+    ),
+    @NamedQuery (
+            name = User.USER_LOGIN,
+            query =   "SELECT u"
+                    + "  FROM User u"
+                    + " WHERE u.id = :userId"
+                    + "   AND u.password = :password"
     )
 })
 @Entity
@@ -25,6 +32,7 @@ import javax.persistence.Table;
 @Cacheable(false)
 public class User implements Serializable {
     public static final String USER_GETMAXSEQ = "USER_GETMAXSEQ";
+    public static final String USER_LOGIN = "USER_LOGIN";
     
     public static final int SIZE_ID = 20;
     public static final int SIZE_PASSWORD = 5;

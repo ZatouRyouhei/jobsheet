@@ -35,14 +35,27 @@ public class UserResource {
     @Inject
     JobSheetDb jobSheetDb;
     
-    @GET
-    @Path("/login/{id}")
+//    @GET
+//    @Path("/login/{id}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public RestUser getUser(@PathParam("id") String id) {
+//        User searchUser = (User)userdb.search(id);
+//        if (searchUser != null) {
+//            RestUser restUser = new RestUser(searchUser);
+//            return restUser;
+//        } else {
+//            throw new NotFoundException();
+//        }
+//    }
+    @POST
+    @Path("/login")
     @Produces(MediaType.APPLICATION_JSON)
-    public RestUser getUser(@PathParam("id") String id) {
-        User searchUser = (User)userdb.search(id);
-        if (searchUser != null) {
-            RestUser restUser = new RestUser(searchUser);
-            return restUser;
+    public RestUser getUser(RestUser restUser) {
+        User user = userdb.login(restUser.getId(), restUser.getPassword());
+        if (user != null) {
+            RestUser rUser = new RestUser(user);
+            rUser.setPassword(""); // パスワードは空にして送り返す
+            return rUser;
         } else {
             throw new NotFoundException();
         }
@@ -122,4 +135,17 @@ public class UserResource {
         }
     }
     
+    @POST
+    @Path("/changePassword")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void changePassword(RestUser restUser) {
+        User targetUser = userdb.search(restUser.getId());
+        if (targetUser != null) {
+            targetUser.setPassword(restUser.getPassword());
+            userdb.update(targetUser);
+        } else {
+            // IDが存在しない。
+            throw new NotFoundException();
+        }
+    }
 }
