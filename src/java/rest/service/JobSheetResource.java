@@ -20,6 +20,7 @@ import java.time.ZoneId;
 import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.enterprise.context.RequestScoped;
@@ -38,6 +39,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -185,6 +187,9 @@ public class JobSheetResource {
             // 検索処理
             List<JobSheet> jobSheetList =jobSheetDb.getJobSheetList(condition);
             
+            // ステータスを求めるために後で使用する。
+            Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+            
             // Excel生成
             // テンプレートファイル名
             String templateName = "template.xlsx";
@@ -219,40 +224,59 @@ public class JobSheetResource {
                 
                 // 番号
                 setCellValue(row, 0, jobSheet.getId(), cellStyle);
-                // 顧客
-                setCellValue(row, 1, jobSheet.getClient().getName(), cellStyle);
-                // 業務
-                setCellValue(row, 2, jobSheet.getBusinessSystem().getBusiness().getName(), cellStyle);
-                // システム
-                setCellValue(row, 3, jobSheet.getBusinessSystem().getName(), cellStyle);
-                // 問合せ区分
-                setCellValue(row, 4, jobSheet.getInquiry().getName(), cellStyle);
-                // 部署
-                setCellValue(row, 5, jobSheet.getDepartment(), cellStyle);
-                // 担当者
-                setCellValue(row, 6, jobSheet.getPerson(), cellStyle);
-                // 発生日時
-                setCellValue(row, 7, jobSheet.getOccurDateTime(), datetimeCellStyle);
-                // タイトル
-                setCellValue(row, 8, jobSheet.getTitle(), cellStyle);
-                // 内容
-                setCellValue(row, 9, jobSheet.getContent(), cellStyle);
-                // 窓口
-                setCellValue(row, 10, jobSheet.getContact().getName(), cellStyle);
-                // 対応者
-                if (jobSheet.getDeal() != null) {
-                    setCellValue(row, 11, jobSheet.getDeal().getName(), cellStyle);
+                // ステータス
+                String status = "";
+                if (jobSheet.getCompleteDate() != null) {
+                    status = "完了";
                 } else {
-                    setCellValue(row, 11, "", cellStyle);
+                    if (jobSheet.getLimitDate() != null) {
+                        if (jobSheet.getLimitDate().before(today)) {
+                            // 完了期限を過ぎている
+                            status = "期限超過";
+                        } else {
+                            // 完了期限を過ぎていない
+                            long termDate = (jobSheet.getLimitDate().getTime() - today.getTime()) / 86400000 + 1;
+                            if (termDate <= 3) {
+                                status = "あと" + termDate + "日";
+                            }
+                        }
+                    }
                 }
+                setCellValue(row, 1, status, cellStyle);
+                // 顧客
+                setCellValue(row, 2, jobSheet.getClient().getName(), cellStyle);
+                // 業務
+                setCellValue(row, 3, jobSheet.getBusinessSystem().getBusiness().getName(), cellStyle);
+                // システム
+                setCellValue(row, 4, jobSheet.getBusinessSystem().getName(), cellStyle);
+                // 問合せ区分
+                setCellValue(row, 5, jobSheet.getInquiry().getName(), cellStyle);
+                // 部署
+                setCellValue(row, 6, jobSheet.getDepartment(), cellStyle);
+                // 担当者
+                setCellValue(row, 7, jobSheet.getPerson(), cellStyle);
+                // 発生日時
+                setCellValue(row, 8, jobSheet.getOccurDateTime(), datetimeCellStyle);
+                // 窓口
+                setCellValue(row, 9, jobSheet.getContact().getName(), cellStyle);
+                // タイトル
+                setCellValue(row, 10, jobSheet.getTitle(), cellStyle);
+                // 内容
+                setCellValue(row, 11, jobSheet.getContent(), cellStyle);
                 // 完了期限
                 setCellValue(row, 12, jobSheet.getLimitDate(), dateCellStyle);
-                // 完了日
-                setCellValue(row, 13, jobSheet.getCompleteDate(), dateCellStyle);
                 // 対応詳細
-                setCellValue(row, 14, jobSheet.getSupport(), cellStyle);
+                setCellValue(row, 13, jobSheet.getSupport(), cellStyle);
+                // 対応者
+                if (jobSheet.getDeal() != null) {
+                    setCellValue(row, 14, jobSheet.getDeal().getName(), cellStyle);
+                } else {
+                    setCellValue(row, 14, "", cellStyle);
+                }
+                // 完了日
+                setCellValue(row, 15, jobSheet.getCompleteDate(), dateCellStyle);
                 // 対応時間
-                setCellValue(row, 15, jobSheet.getResponseTime(), cellStyle);
+                setCellValue(row, 16, jobSheet.getResponseTime(), cellStyle);
             }
             
             // レスポンスを生成する。
