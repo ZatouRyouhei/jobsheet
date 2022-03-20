@@ -163,6 +163,22 @@ public class JobSheetDb extends TryCatchDb<JobSheet> {
     }
     
     /**
+     * 指定の顧客IDが業務日誌で使用されているか確認
+     * @param clientId
+     * @return true:使用されている、false:使用されていない
+     */
+    public boolean checkClient(Integer clientId) {
+        TypedQuery<JobSheet> q = em.createNamedQuery(JobSheet.JOBSHEET_CLIENTCHECK, JobSheet.class);
+        q.setParameter("clientId", clientId);
+        List<JobSheet> jobSheetList = q.getResultList();
+        if (jobSheetList.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+    
+    /**
      * 指定したシステムの指定期間の発生件数をカウントする。
      * @param system
      * @param fromDate

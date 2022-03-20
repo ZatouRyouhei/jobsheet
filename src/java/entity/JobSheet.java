@@ -70,6 +70,12 @@ import javax.persistence.TemporalType;
             query =   "SELECT js"
                     + "  FROM JobSheet js"
                     + " WHERE js.businessSystem.id = :systemId"
+    ),
+    @NamedQuery (
+            name = JobSheet.JOBSHEET_CLIENTCHECK,
+            query =   "SELECT js"
+                    + "  FROM JobSheet js"
+                    + " WHERE js.client.id = :clientId"
     )
 })
 @Entity
@@ -79,6 +85,7 @@ public class JobSheet implements Serializable {
     public static final String JOBSHEET_GETMAXID = "JobSheet_getMaxId";
     public static final String JOBSHEET_USERCHECK = "JOBSHEET_USERCHECK";
     public static final String JOBSHEET_SYSTEMCHECK = "JOBSHEET_SYSTEMCHECK";
+    public static final String JOBSHEET_CLIENTCHECK = "JOBSHEET_CLIENTCHECK";
     public static final String JOBSHEET_STATS_OCCUR = "JOBSHEET_STATS_OCCUR";
     public static final String JOBSHEET_STATS_COMPLETE = "JOBSHEET_STATS_COMPLETE";
     public static final String JOBSHEET_COUNT_LEFT = "JOBSHEET_COUNT_LEFT";
