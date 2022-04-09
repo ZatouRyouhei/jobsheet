@@ -6,6 +6,8 @@ import javax.persistence.Cacheable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -14,10 +16,17 @@ import javax.persistence.TemporalType;
  * 休日テーブル
  * @author ryouhei
  */
+@NamedQueries({
+    @NamedQuery (
+            name = Holiday.HOLIDAY_DELETE_ALL,
+            query = "DELETE FROM Holiday"
+    )
+})
 @Entity
 @Table(name="t_holiday")
 @Cacheable(false)
 public class Holiday implements Serializable {
+    public static final String HOLIDAY_DELETE_ALL = "HOLIDAY_DELETE_ALL";
     public static final int SIZE_NAME = 20;
     
     @Id
