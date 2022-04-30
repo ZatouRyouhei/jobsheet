@@ -19,12 +19,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import rest.dto.RestBusinessSystem;
+import rest.filter.Authenticate;
 
 /**
  *
  * @author ryouhei
  */
 @RequestScoped
+@Authenticate
 @Path("/system")
 public class BusinessSystemResource {
     @Inject

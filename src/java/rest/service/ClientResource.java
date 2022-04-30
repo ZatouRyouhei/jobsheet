@@ -17,12 +17,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import rest.dto.RestClient;
+import rest.filter.Authenticate;
 
 /**
  *
  * @author ryouhei
  */
 @RequestScoped
+@Authenticate
 @Path("/client")
 public class ClientResource {
     @Inject

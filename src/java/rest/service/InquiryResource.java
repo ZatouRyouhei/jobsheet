@@ -12,12 +12,14 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import rest.dto.RestInquiry;
+import rest.filter.Authenticate;
 
 /**
  *
  * @author ryouhei
  */
 @RequestScoped
+@Authenticate
 @Path("/inquiry")
 public class InquiryResource {
     @Inject

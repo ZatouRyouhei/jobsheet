@@ -52,12 +52,14 @@ import rest.dto.RestJobSheet;
 import rest.dto.RestSearchConditionJobSheet;
 import rest.dto.RestSearchJobSheet;
 import rest.dto.RestStatJobSheet;
+import rest.filter.Authenticate;
 
 /**
  *
  * @author ryouhei
  */
 @RequestScoped
+@Authenticate
 @Path("/jobsheet")
 public class JobSheetResource {
     @Inject

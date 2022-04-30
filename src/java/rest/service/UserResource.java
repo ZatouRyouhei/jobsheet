@@ -20,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import org.apache.commons.lang3.StringUtils;
 import rest.dto.RestUser;
 import rest.dto.RestUserList;
+import rest.filter.Authenticate;
 
 /**
  *
@@ -54,13 +55,15 @@ public class UserResource {
         User user = userdb.login(restUser.getId(), restUser.getPassword());
         if (user != null) {
             RestUser rUser = new RestUser(user);
-            rUser.setPassword(""); // パスワードは空にして送り返す
+            //rUser.setPassword("");
+            // webサービスの認証で利用するのでパスワードも返す
             return rUser;
         } else {
             throw new NotFoundException();
         }
     }
     
+    @Authenticate
     @GET
     @Path("/getList")
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,6 +77,7 @@ public class UserResource {
         return restUserList;
     }
     
+    @Authenticate
     @POST
     @Path("/regist")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -100,6 +104,7 @@ public class UserResource {
      * @param id
      * @return 0:正常終了、1:使用されているため削除不可
      */
+    @Authenticate
     @DELETE
     @Path("/delete/{id}")
     public Integer deleteUser(@PathParam("id") String id) {
@@ -122,6 +127,7 @@ public class UserResource {
         return result;
     }
     
+    @Authenticate
     @POST
     @Path("/changeSeq")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -135,6 +141,7 @@ public class UserResource {
         }
     }
     
+    @Authenticate
     @POST
     @Path("/changePassword")
     @Consumes(MediaType.APPLICATION_JSON)
