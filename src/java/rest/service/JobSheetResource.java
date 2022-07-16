@@ -141,7 +141,7 @@ public class JobSheetResource {
         // 添付ファイルも削除する。
         List<Attachment> targetAttachmentList = attachmentDb.getFileList(id);
         targetAttachmentList.forEach(attachment -> {
-            attachmentDb.delete(attachment);
+            attachmentDb.deleteAttachment(attachment);
         });
     }
     
