@@ -61,8 +61,12 @@ public class AttachmentResource {
     public Response downloadAttachment(@PathParam("id") String id, @PathParam("seqNo") Integer seqNo) {
         try {
             Attachment file = attachmentDb.getFile(id, seqNo);
+            byte[] byteFile = attachmentDb.getByteFile(file);
             
-            ResponseBuilder response = Response.ok(file.getAttachFile());
+            // DBから取得する場合
+            //ResponseBuilder response = Response.ok(file.getAttachFile());
+            // サーバのフォルダから取得する場合
+            ResponseBuilder response = Response.ok(byteFile);
             String encodedFilename = URLEncoder.encode(file.getFileName(), "UTF-8");
             String headerVal = "attachment; filename=" + encodedFilename;
             response.header("Content-Disposition", headerVal);
@@ -78,7 +82,7 @@ public class AttachmentResource {
     public List<RestAttachment> deleteAttachment(@PathParam("id") String id, @PathParam("seqNo") Integer seqNo) {
         Attachment file = attachmentDb.getFile(id, seqNo);
         if (file != null) {
-            attachmentDb.delete(file);
+            attachmentDb.deleteAttachment(file);
         } else {
             throw new NotFoundException();
         }

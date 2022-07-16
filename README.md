@@ -75,7 +75,13 @@ Netbeansの「Projects」タブで、右クリック→Open Project...をクリ�
 ```
 <jta-data-source>jdbc/jobsheetdb</jta-data-source>
 ```
-12. ビルド、デプロイ  
+
+12. 添付ファイルの保存フォルダ設定
+添付ファイルの保存フォルダのパスが、
+constant.AttachmentBaseDirのBASE_DIRに定義されているので、利用するサーバごとに
+適切なパスを設定してください。
+
+13. ビルド、デプロイ  
 Netbeansでプロジェクトを右クリックし、Buildおよび、Deployをしてください。  
 Deployをすると、データベースに必要なテーブルが自動的に作成されます。
 

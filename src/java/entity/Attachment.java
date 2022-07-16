@@ -59,6 +59,11 @@ public class Attachment implements Serializable {
         this.fileName = fileName;
         this.attachFile = attachFile;
     }
+    
+    public Attachment(AttachmentKey key, String fileName) {
+        this.key = key;
+        this.fileName = fileName;
+    }
 
     public AttachmentKey getKey() {
         return key;
