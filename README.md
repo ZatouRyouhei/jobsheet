@@ -76,10 +76,10 @@ Netbeansの「Projects」タブで、右クリック→Open Project...をクリ�
 <jta-data-source>jdbc/jobsheetdb</jta-data-source>
 ```
 
-12. 添付ファイルの保存フォルダ設定
-添付ファイルの保存フォルダのパスが、
-constant.AttachmentBaseDirのBASE_DIRに定義されているので、利用するサーバごとに
-適切なパスを設定してください。
+12. 添付ファイルの保存設定
+constant.AttachmentBaseDirのATTACHMENT_MODEについて、DB_MODEかDISK_MODEを選択してください。
+DISK_MODEの場合は、添付ファイルの保存フォルダのパスが、
+constant.AttachmentBaseDirのBASE_DIRに定義されているので、利用するサーバごとに適切なパスを設定してください。
 
 13. ビルド、デプロイ  
 Netbeansでプロジェクトを右クリックし、Buildおよび、Deployをしてください。  

@@ -1,5 +1,6 @@
 package rest.service;
 
+import constant.AttachmentPropaties;
 import db.AttachmentDb;
 import entity.Attachment;
 import java.io.UnsupportedEncodingException;
@@ -61,12 +62,15 @@ public class AttachmentResource {
     public Response downloadAttachment(@PathParam("id") String id, @PathParam("seqNo") Integer seqNo) {
         try {
             Attachment file = attachmentDb.getFile(id, seqNo);
-            byte[] byteFile = attachmentDb.getByteFile(file);
-            
-            // DBから取得する場合
-            //ResponseBuilder response = Response.ok(file.getAttachFile());
-            // サーバのフォルダから取得する場合
-            ResponseBuilder response = Response.ok(byteFile);
+            ResponseBuilder response = Response.ok();
+            if (AttachmentPropaties.ATTACHMENT_MODE == AttachmentPropaties.AttachmentMode.DB_MODE) {
+                // DBから取得する場合
+                response = Response.ok(file.getAttachFile());
+            } else if (AttachmentPropaties.ATTACHMENT_MODE == AttachmentPropaties.AttachmentMode.DISK_MODE) {
+                // サーバのフォルダから取得する場合
+                byte[] byteFile = attachmentDb.getByteFile(file);
+                response = Response.ok(byteFile);
+            }
             String encodedFilename = URLEncoder.encode(file.getFileName(), "UTF-8");
             String headerVal = "attachment; filename=" + encodedFilename;
             response.header("Content-Disposition", headerVal);
