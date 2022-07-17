@@ -6,10 +6,11 @@
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <shared-cache-mode>NONE</shared-cache-mode>
     <properties>
+      <!--
       <property name="eclipselink.logging.level.sql" value="FINE"/>
       <property name="eclipselink.logging.parameters" value="true"/>
+      -->
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
-      <property name="eclipselink.canonicalmodel.subpackage" value="one"/>
     </properties>
   </persistence-unit>
 </persistence>

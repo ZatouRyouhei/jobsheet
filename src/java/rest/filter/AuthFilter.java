@@ -35,7 +35,6 @@ public class AuthFilter implements ContainerRequestFilter {
     @Override
     public void filter(ContainerRequestContext requestContext) throws IOException {
         String authHeader = requestContext.getHeaderString("Authorization");
-        System.out.println("*****" + authHeader);
 //        MultivaluedMap<String, String> headers = requestContext.getHeaders();
 //        headers.forEach((k, v) -> {
 //            System.out.println("*****" + k + ":" + v);
@@ -45,7 +44,6 @@ public class AuthFilter implements ContainerRequestFilter {
             // username:passwordの部分はBase64でエンコードされているので、デコードを行う。
             byte[] basicAuthByte =  Base64.getDecoder().decode(authHeader.replaceAll("Basic\\s", ""));
             String basicAuth = new String(basicAuthByte, StandardCharsets.UTF_8);
-            System.out.println("*****" + basicAuth);
             // ユーザIDとパスワードは「:」で区切られているので分解する。
             String[] headerArr = basicAuth.split(":");
             String userName = headerArr[0];
