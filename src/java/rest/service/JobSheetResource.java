@@ -38,6 +38,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import lock.IDLock;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -85,8 +86,11 @@ public class JobSheetResource {
         try {
             // 新規登録のときはIDを生成する。
             if (StringUtils.isEmpty(restJobSheet.getId())) {
-                String nextId = jobSheetDb.getNextId();
-                restJobSheet.setId(nextId);
+                // ID取得のときは、ロックを取得して同時処理を制御する。
+                synchronized(IDLock.class) {
+                    String nextId = jobSheetDb.getNextId();
+                    restJobSheet.setId(nextId);
+                }
             }
             
             JobSheet jobSheet = new JobSheet();
