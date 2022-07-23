@@ -85,7 +85,22 @@ public class JobSheetDb extends TryCatchDb<JobSheet> {
             query.append(" AND j.limitDate <= :limitDate");
         }
         if (StringUtils.isNotEmpty(condition.getKeyword())) {
-            query.append(" AND (j.title LIKE :keyword OR j.content LIKE :keyword )");
+            query.append(" AND ( 1 = 0");
+            // 半角スペースと全角スペースを区切り文字とする。
+            String[] keywords = condition.getKeyword().split("[ 　]");
+            for (int cnt = 0; cnt < keywords.length; cnt++) {
+                // 区切り文字が連続で入っていると、空のキーワードが含まれるので、空のキーワードは除外する。
+                if (StringUtils.isNotEmpty(keywords[cnt])) {
+                    query.append(" OR (");
+                    query.append("    j.title LIKE :keyword" + cnt);
+                    query.append(" OR j.content LIKE :keyword" + cnt);
+                    query.append(" OR j.support LIKE :keyword" + cnt);
+                    query.append(" OR j.department LIKE :keyword" + cnt);
+                    query.append(" OR j.person LIKE :keyword" + cnt);
+                    query.append(" )");
+                }
+            }
+            query.append(" )");
         }
         query.append(" ORDER BY j.id DESC");
         
@@ -124,7 +139,14 @@ public class JobSheetDb extends TryCatchDb<JobSheet> {
             q.setParameter("limitDate", limitDate);
         }
         if (StringUtils.isNotEmpty(condition.getKeyword())) {
-            q.setParameter("keyword", "%" + condition.getKeyword() + "%");
+            // 半角スペースと全角スペースを区切り文字とする。
+            String[] keywords = condition.getKeyword().split("[ 　]");
+            for (int cnt = 0; cnt < keywords.length; cnt++) {
+                // 区切り文字が連続で入っていると、空のキーワードが含まれるので、空のキーワードは除外する。
+                if (StringUtils.isNotEmpty(keywords[cnt])) {
+                    q.setParameter("keyword" + cnt, "%" + keywords[cnt] + "%");
+                }
+            }
         }
         List<JobSheet> jobSheetList = q.getResultList();
         return jobSheetList;
