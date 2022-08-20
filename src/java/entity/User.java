@@ -35,7 +35,7 @@ public class User implements Serializable {
     public static final String USER_LOGIN = "USER_LOGIN";
     
     public static final int SIZE_ID = 20;
-    public static final int SIZE_PASSWORD = 5;
+    public static final int SIZE_PASSWORD = 128;
     public static final int SIZE_NAME = 20;
     
     @Id
