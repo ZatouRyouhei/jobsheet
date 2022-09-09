@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fontFamilies>
+  <!-- 源柔ゴシック -->
+  <fontFamily name="Genju">
+    <normal>fonts/GenJyuuGothic-Regular.ttf</normal>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+</fontFamilies>

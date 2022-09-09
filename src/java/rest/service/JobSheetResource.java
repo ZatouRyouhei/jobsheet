@@ -10,7 +10,9 @@ import entity.Attachment;
 import entity.BusinessSystem;
 import entity.JobSheet;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,7 +24,11 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -39,6 +45,13 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import lock.IDLock;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
@@ -293,6 +306,94 @@ public class JobSheetResource {
             return response.build();
         } catch (ParseException | IOException ex) {
             throw new InternalServerErrorException();
+        }
+    }
+    
+    @GET
+    @Path("/pdf/{id}")
+    @Produces("application/pdf")
+    public Response pdfJobSheet (@PathParam("id") String id) {
+        JobSheet jobSheet = jobSheetDb.search(id);
+        if (jobSheet != null) {
+            // 結果が取得できた場合
+            // テンプレートファイルパスを指定
+            String formPath = context.getRealPath("resources/form/jobSheet.jasper");
+            File jasperFile = new File(formPath);
+            if(jasperFile.exists()){
+                try {
+                    JasperReport jasperReport = (JasperReport)JRLoader.loadObject(jasperFile);
+                    Map<String, Object> params = new HashMap<>();
+                    // ID
+                    params.put("jobSheetId", id);
+                    // 顧客名
+                    params.put("client",  jobSheet.getClient().getName());
+                    // 業務
+                    params.put("business", jobSheet.getBusinessSystem().getBusiness().getName());
+                    // システム
+                    params.put("system", jobSheet.getBusinessSystem().getName());
+                    // 問合せ区分
+                    params.put("inquiry", jobSheet.getInquiry().getName());
+                    // 部署
+                    params.put("department", jobSheet.getDepartment());
+                    // 担当者
+                    params.put("person", jobSheet.getPerson());
+                    // 発生日
+                    SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日 HH時mm分");
+                    params.put("occurDateTime", df.format(jobSheet.getOccurDateTime()));
+                    // 窓口
+                    params.put("contact", jobSheet.getContact().getName());
+                    // タイトル
+                    params.put("title", jobSheet.getTitle());
+                    // 問合せ内容
+                    params.put("content", jobSheet.getContent());
+                    // 完了期限
+                    if (jobSheet.getLimitDate() != null) {
+                        SimpleDateFormat limitDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+                        params.put("limitDate", limitDateFormat.format(jobSheet.getLimitDate()));
+                    } else {
+                        params.put("limitDate", "");
+                    }
+                    // 対応詳細
+                    if (jobSheet.getSupport() != null) {
+                        params.put("support", jobSheet.getSupport());
+                    } else {
+                        params.put("support", "");
+                    }
+                    // 窓口
+                    if (jobSheet.getDeal() != null) {
+                        params.put("deal", jobSheet.getDeal().getName());
+                    } else {
+                        params.put("deal", "");
+                    }
+                    // 完了日
+                    if (jobSheet.getCompleteDate() != null) {
+                         SimpleDateFormat completeDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+                        params.put("completeDate", completeDateFormat.format(jobSheet.getCompleteDate()));
+                    } else {
+                        params.put("completeDate", "");
+                    }
+                    // 対応時間
+                    if (jobSheet.getResponseTime() != null) {
+                        params.put("responseTime", String.valueOf(jobSheet.getResponseTime()));
+                    } else {
+                        params.put("responseTime", "");
+                    }
+                    JasperPrint pdf = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
+                    // レスポンスを生成する。
+                    String encodedFilename = URLEncoder.encode("業務日誌.pdf", "UTF-8");
+                    Response.ResponseBuilder response = Response.ok(JasperExportManager.exportReportToPdf(pdf));
+                    String headerVal = "attachment; filename=" + encodedFilename;
+                    response.header("Content-Disposition", headerVal);
+                    return response.build();
+                } catch (JRException | UnsupportedEncodingException ex) {
+                    throw new InternalServerErrorException();
+                }
+            } else {
+                throw new InternalServerErrorException();
+            }
+        } else {
+            // 結果が取得できない場合
+            throw new NotFoundException();
         }
     }
     

@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.4.3.final using JasperReports Library version 6.4.3  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="jobSheet" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5c2a1508-e97e-4bd1-99e0-23573e2bb6e4">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<parameter name="jobSheetId" class="java.lang.String"/>
+	<parameter name="client" class="java.lang.String"/>
+	<parameter name="business" class="java.lang.String"/>
+	<parameter name="system" class="java.lang.String"/>
+	<parameter name="inquiry" class="java.lang.String"/>
+	<parameter name="department" class="java.lang.String"/>
+	<parameter name="person" class="java.lang.String"/>
+	<parameter name="occurDateTime" class="java.lang.String"/>
+	<parameter name="contact" class="java.lang.String"/>
+	<parameter name="title" class="java.lang.String"/>
+	<parameter name="content" class="java.lang.String"/>
+	<parameter name="limitDate" class="java.lang.String"/>
+	<parameter name="support" class="java.lang.String"/>
+	<parameter name="deal" class="java.lang.String"/>
+	<parameter name="completeDate" class="java.lang.String"/>
+	<parameter name="responseTime" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="797" splitType="Stretch">
+			<textField>
+				<reportElement x="10" y="10" width="150" height="30" uuid="7818004f-f538-4596-9d02-470ac536e1b4"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jobSheetId}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="10" y="60" width="180" height="30" uuid="e283323c-e176-4da5-8263-23f7c4e76a10">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{client}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="60" width="180" height="30" uuid="16aeee72-3105-436e-8f4b-80d563cc126f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{business}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="60" width="180" height="30" uuid="c966dcaf-d395-432d-a51b-f009215e4864">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{system}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="110" width="180" height="30" uuid="f3ba9851-f3f5-443b-9dcd-5f80e87f80cd">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{inquiry}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="110" width="180" height="30" uuid="c7ca554c-ea4d-4a09-818c-3713863cf2f9">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{department}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="110" width="180" height="30" uuid="feba5be9-d454-4a6d-b142-afed0cf3274f">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{person}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="160" width="180" height="30" uuid="ed855fe5-c88b-44be-9218-403fe27b1f6d"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{occurDateTime}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="160" width="180" height="30" uuid="2e53f68f-c32c-4dd4-ba5c-f3da61ce3540"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{contact}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="210" width="540" height="30" uuid="a7a8ed8f-542d-4c3a-b39d-78d1055c67a9"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="260" width="540" height="200" uuid="18f1f0e0-9e9c-469d-af8a-8883d72da0d3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{content}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="480" width="180" height="30" uuid="3aeec616-b2a6-43fc-bbff-6b1c335cdd95"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{limitDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="530" width="540" height="200" uuid="e86b2399-90aa-4b30-934b-bb0cbbddb3aa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Top">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{support}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="750" width="180" height="30" uuid="767c6d55-ccf0-4061-b32b-0ce523dad3df"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{deal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="190" y="750" width="180" height="30" uuid="640dd7de-34e7-4a3f-b884-ff69e73ba818"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{completeDate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="370" y="750" width="180" height="30" uuid="97645262-6caf-4d4d-b71a-02ee800c26f6"/>
+				<box leftPadding="5" rightPadding="5">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Genju" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{responseTime}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="10" y="40" width="180" height="20" forecolor="#000000" backcolor="#FFFFFF" uuid="08999e62-d368-4932-8bb2-aae67dae0a1f"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[顧客]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="40" width="180" height="20" uuid="5a1da66e-b922-4f56-8b6b-21ee40185f83"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<pen lineWidth="1.0" lineStyle="Dotted"/>
+					<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted" lineColor="#000000"/>
+					<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[業務]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="40" width="180" height="20" uuid="681375a6-4ab8-4eee-82ab-f133abc45e8d"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[システム]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="90" width="180" height="20" uuid="59170b75-2fb7-44f0-883d-ed0e21c95f5b"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[問合区分]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="90" width="180" height="20" uuid="d50c4b32-53bd-4363-be0f-7cf14bea1b99"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[部署]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="90" width="180" height="20" uuid="e51f5e23-d855-4ee2-96d8-68801dd8cc67"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[担当者]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="140" width="180" height="20" uuid="1e874f95-4609-4d9c-9356-89c090af87a0">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[発生日]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="140" width="180" height="20" uuid="efee4899-e660-4765-af06-cb05d70d6803">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[窓口]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="190" width="540" height="20" uuid="6eab9aaf-40ce-4d09-848b-6bc40d51aa6c"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[タイトル]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="240" width="540" height="20" uuid="fdaa0e13-b3c8-458a-a856-68e7fab7cc74"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[内容]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="460" width="180" height="20" uuid="927fa8e6-f575-47a3-92a9-84731884fc4a"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[完了期限]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="510" width="540" height="20" uuid="063ac64e-d0c6-4904-ba44-6256c6f4ae52"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[対応詳細]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="370" y="730" width="180" height="20" uuid="3e8330dd-582c-478e-a45e-25213443ecc0"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[対応時間（時間）]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="190" y="730" width="180" height="20" uuid="571ea490-e61c-45b6-b18e-55a080185282"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[完了日]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="730" width="180" height="20" uuid="e69158be-8451-4022-8d84-34c8bc7e0714"/>
+				<box topPadding="0" leftPadding="5" bottomPadding="0" rightPadding="5">
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0" lineStyle="Dotted"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Genju" size="8"/>
+				</textElement>
+				<text><![CDATA[対応者]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>
