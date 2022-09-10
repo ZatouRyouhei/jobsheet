@@ -344,8 +344,15 @@ public class JobSheetResource {
                     params.put("contact", jobSheet.getContact().getName());
                     // タイトル
                     params.put("title", jobSheet.getTitle());
-                    // 問合せ内容
-                    params.put("content", jobSheet.getContent());
+                    // 問合せ内容 14行以上あるとき文字を小さくする
+                    String[] contentLines = jobSheet.getContent().split("\n");
+                    if (contentLines.length <= 13) {
+                        params.put("content", jobSheet.getContent());
+                        params.put("contentSmall", "");
+                    } else {
+                        params.put("content", "");
+                        params.put("contentSmall", jobSheet.getContent());
+                    }
                     // 完了期限
                     if (jobSheet.getLimitDate() != null) {
                         SimpleDateFormat limitDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
@@ -353,9 +360,16 @@ public class JobSheetResource {
                     } else {
                         params.put("limitDate", "");
                     }
-                    // 対応詳細
+                    // 対応詳細 14行以上あるとき文字を小さくする
                     if (jobSheet.getSupport() != null) {
-                        params.put("support", jobSheet.getSupport());
+                        String[] supportLines = jobSheet.getSupport().split("\n");
+                        if (supportLines.length <= 13) {
+                            params.put("support", jobSheet.getSupport());
+                            params.put("supportSmall", "");
+                        } else {
+                            params.put("support", "");
+                            params.put("supportSmall", jobSheet.getSupport());
+                        }
                     } else {
                         params.put("support", "");
                     }
@@ -378,6 +392,32 @@ public class JobSheetResource {
                     } else {
                         params.put("responseTime", "");
                     }
+                    
+                    // 現在日
+                    Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+                    // ステータス
+                    String status = "";
+                    if (jobSheet.getCompleteDate() != null) {
+                        status = "完了";
+                    } else {
+                        if (jobSheet.getLimitDate() != null) {
+                            if (jobSheet.getLimitDate().before(today)) {
+                                // 完了期限を過ぎている
+                                status = "期限超過";
+                            } else {
+                                // 完了期限を過ぎていない
+                                long termDate = (jobSheet.getLimitDate().getTime() - today.getTime()) / 86400000 + 1;
+                                if (termDate <= 3) {
+                                    status = "あと" + termDate + "日";
+                                }
+                            }
+                        }
+                    }
+                    params.put("status", status);
+                    // 出力日
+                    SimpleDateFormat currentDateFormat = new SimpleDateFormat("yyyy年MM月dd日");
+                    params.put("currentDate", currentDateFormat.format(today));
+                    
                     JasperPrint pdf = JasperFillManager.fillReport(jasperReport, params, new JREmptyDataSource());
                     // レスポンスを生成する。
                     String encodedFilename = URLEncoder.encode("業務日誌.pdf", "UTF-8");
