@@ -349,9 +349,15 @@ public class JobSheetResource {
                     if (contentLines.length <= 13) {
                         params.put("content", jobSheet.getContent());
                         params.put("contentSmall", "");
-                    } else {
+                        params.put("contentExSmall", "");
+                    } else if (contentLines.length <= 16) {
                         params.put("content", "");
                         params.put("contentSmall", jobSheet.getContent());
+                        params.put("contentExSmall", "");
+                    } else {
+                        params.put("content", "");
+                        params.put("contentSmall", "");
+                        params.put("contentExSmall", jobSheet.getContent());
                     }
                     // 完了期限
                     if (jobSheet.getLimitDate() != null) {
@@ -366,12 +372,20 @@ public class JobSheetResource {
                         if (supportLines.length <= 13) {
                             params.put("support", jobSheet.getSupport());
                             params.put("supportSmall", "");
-                        } else {
+                            params.put("supportExSmall", "");
+                        } else if (supportLines.length <= 16) {
                             params.put("support", "");
                             params.put("supportSmall", jobSheet.getSupport());
+                            params.put("supportExSmall", "");
+                        } else {
+                            params.put("support", "");
+                            params.put("supportSmall", "");
+                            params.put("supportExSmall", jobSheet.getSupport());
                         }
                     } else {
                         params.put("support", "");
+                        params.put("supportSmall", "");
+                        params.put("supportExSmall", "");
                     }
                     // 窓口
                     if (jobSheet.getDeal() != null) {
